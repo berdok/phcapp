@@ -1,0 +1,24 @@
+from flask import Flask, render_template_string, request
+
+# Create a Flask app
+app = Flask(__name__)
+
+# Route for the form
+@app.route('/')
+def form():
+    return '''
+        <form action="/submit" method="POST">
+            Buyer: <input type="text" name="buyer_name">
+            <input type="submit" value="Submit">
+        </form>
+    '''
+
+# Route to handle form submission
+@app.route('/submit', methods=['POST'])
+def submit_buyer():
+    buyer_name = request.form['buyer_name']  # Get the buyer's name from the form
+    return f'Thank you, {buyer_name}, for your order!'
+
+# Run the app
+if __name__ == '__main__':
+    app.run(debug=True)
